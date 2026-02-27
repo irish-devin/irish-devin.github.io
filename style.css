@@ -1,8 +1,6 @@
-
 /* ================================
-   ROOT VARIABLES
+   ROOT VARIABLES (DARK DEFAULT)
 ================================ */
-
 :root {
     --bg: #0a0f1c;
     --card: #121a2b;
@@ -12,9 +10,17 @@
     --border: #1f2937;
 }
 
-/* ================================
-   GLOBAL RESET
-================================ */
+/* LIGHT MODE */
+body.light-mode {
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --accent: #0066ff;
+    --text: #111827;
+    --subtle: #4b5563;
+    --border: #d1d5db;
+}
+
+/* ================================ */
 
 * {
     box-sizing: border-box;
@@ -27,11 +33,28 @@ body {
     color: var(--text);
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
+    transition: background .3s ease, color .3s ease;
+    overflow-x: hidden;
 }
 
-/* ================================
-   LAYOUT
-================================ */
+/* Animated cyber grid background */
+body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background-image:
+        linear-gradient(rgba(0,240,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,240,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 30s linear infinite;
+    z-index: -1;
+}
+
+@keyframes gridMove {
+    from { transform: translate(0,0); }
+    to { transform: translate(-50px,-50px); }
+}
 
 .container {
     max-width: 1100px;
@@ -40,11 +63,19 @@ body {
 }
 
 section {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.6s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
     font-weight: 700;
 }
 
@@ -55,21 +86,8 @@ h2 {
     font-weight: 600;
 }
 
-h3 {
-    margin-bottom: 8px;
-}
-
-/* ================================
-   LINKS & BUTTONS
-================================ */
-
 a {
     color: var(--accent);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
 }
 
 button {
@@ -84,30 +102,22 @@ button {
 }
 
 button:hover {
-    opacity: 0.85;
     transform: translateY(-2px);
+    box-shadow: 0 0 15px var(--accent);
 }
-
-/* ================================
-   CARDS
-================================ */
 
 .card {
     background: var(--card);
     padding: 25px;
     border-radius: 8px;
-    margin-top: 20px;
     border: 1px solid var(--border);
-    transition: 0.2s ease;
+    transition: 0.3s ease;
 }
 
 .card:hover {
+    box-shadow: 0 0 20px rgba(0,240,255,0.15);
     transform: translateY(-4px);
 }
-
-/* ================================
-   GRID
-================================ */
 
 .grid {
     display: grid;
@@ -118,22 +128,14 @@ button:hover {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-/* ================================
-   HERO SECTION
-================================ */
-
 .hero {
-    padding: 80px 0;
+    padding: 100px 0;
 }
 
 .hero p {
     margin-top: 10px;
     color: var(--subtle);
 }
-
-/* ================================
-   TERMINAL EFFECT
-================================ */
 
 .terminal {
     font-family: 'Share Tech Mono', monospace;
@@ -157,28 +159,15 @@ button:hover {
     50% { opacity: 0; }
 }
 
-/* ================================
-   FORM
-================================ */
-
-input,
-textarea {
+input, textarea {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
-    background: #0f172a;
+    background: var(--bg);
     border: 1px solid var(--border);
     color: var(--text);
     border-radius: 4px;
 }
-
-textarea {
-    resize: vertical;
-}
-
-/* ================================
-   FOOTER
-================================ */
 
 footer {
     text-align: center;
@@ -187,16 +176,8 @@ footer {
     font-size: 14px;
 }
 
-/* ================================
-   RESPONSIVE
-================================ */
-
-@media (max-width: 768px) {
-    .hero {
-        padding: 40px 0;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
 }
