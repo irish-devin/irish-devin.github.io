@@ -1,10 +1,9 @@
 // Terminal animation
-const text = [
+const text=[
 "> Initializing security profile...",
-"> Loading penetration testing credentials...",
-"> Network Defense Mode: ACTIVE",
-"> Threat Detection: ENABLED",
-"> Status: Available for IT & Cybersecurity Roles"
+"> Loading credentials...",
+"> Network Defense: ACTIVE",
+"> Status: Available for IT & Cyber Roles"
 ];
 
 let i=0,j=0,currentLine="";
@@ -22,21 +21,21 @@ terminal.innerHTML=currentLine+'<span class="cursor"></span>';
 i++;j=0;setTimeout(type,400);
 }}
 }
-if(terminal){ type(); }
+if(terminal){type();}
 
 // Scroll reveal
-const sections = document.querySelectorAll("section");
-const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
+const sections=document.querySelectorAll("section");
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
 if(entry.isIntersecting){
 entry.target.classList.add("visible");
 }
 });
 });
-sections.forEach(section => observer.observe(section));
+sections.forEach(section=>observer.observe(section));
 
-// Dark / Light toggle
-const toggle = document.getElementById("themeToggle");
+// Theme toggle
+const toggle=document.getElementById("themeToggle");
 if(localStorage.getItem("theme")==="light"){
 document.body.classList.add("light-mode");
 }
